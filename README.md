@@ -1,21 +1,9 @@
-# ReadabilityComparison
+# Readability Comparison
 
-**TODO: Add description**
+This project runs Elixir's [readability](https://github.com/keepcosmos/readability) library on 
+the test suite for Mozilla's [readability](https://github.com/mozilla/readability) library and
+compares the results.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `readability_comparison` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:readability_comparison, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/readability_comparison>.
-
+The goal is to identify some of the cases where Elixir's algorithm is lagging behind
+Mozilla's, given that Mozilla's library is more actively developed and has a test suite
+of a considerable size (124 pages at the time of this writing).
