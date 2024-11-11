@@ -32,13 +32,18 @@ defmodule ReadabilityComparison.Compare do
     with {:ok, source_html} <- Path.join(path, @source_filename) |> File.read(),
          {:ok, expected_html} <- Path.join(path, @expected_filename) |> File.read(),
          {:ok, expected_metadata} <- read_metadata(path) do
-      %__MODULE__{
-        path: path,
-        source_html: source_html,
-        expected_html: expected_html,
-        expected_text: Floki.parse_fragment!(expected_html) |> Floki.text(),
-        expected_metadata: expected_metadata
-      }
+      article = source_html |> Readability.article()
+
+      {:ok,
+       %__MODULE__{
+         path: path,
+         source_html: source_html,
+         expected_html: expected_html,
+         expected_text: Floki.parse_fragment!(expected_html) |> Floki.text(),
+         expected_metadata: expected_metadata,
+         article_html: article |> Readability.readable_html(),
+         article_text: article |> Readability.readable_text()
+       }}
     end
   end
 
