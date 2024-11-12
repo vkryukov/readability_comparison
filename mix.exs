@@ -25,7 +25,8 @@ defmodule ReadabilityComparison.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:floki, "~> 0.36"},
       {:jason, "~> 1.4"},
-      {:readability, "~> 0.12"}
+      {:readability, "~> 0.12"},
+      {:json_diff_ex, git: "https://github.com/olafura/json_diff_ex"}
     ]
   end
 end
