@@ -16,17 +16,21 @@ defmodule ReadabilityComparison do
   def diff(path) do
     {:ok, comparison} = Compare.parse(path)
 
-    first_diff(
-      comparison.expected_htmltree |> normalize_html_whitespace,
-      comparison.article_htmltree |> normalize_html_whitespace,
-      0
-    )
+    result =
+      first_diff(
+        comparison.expected_htmltree |> normalize_html_whitespace,
+        comparison.article_htmltree |> normalize_html_whitespace,
+        0
+      )
+
+    Map.put(result, :first_html, result.first |> Floki.raw_html())
   end
 
   defp first_diff([a | rest_a], [a | rest_b], n), do: first_diff(rest_a, rest_b, n + 1)
   defp first_diff([a | _], [b | _], n) when a != b, do: %{first: a, second: b, n: n}
   defp first_diff([], [a | _], n), do: %{first: nil, second: a, n: n}
   defp first_diff([a | _], [], n), do: %{first: a, second: nil, n: n}
+  defp first_diff([], [], n), do: %{first: nil, second: nil, n: n}
 
   defp normalize_html_whitespace(html_tree) do
     Floki.traverse_and_update(html_tree, fn
